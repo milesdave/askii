@@ -1,2 +1,2 @@
 askii.o: askii.c config.h graphics.h types.h
-graphics.o: graphics.c graphics.h
+graphics.o: graphics.c config.h graphics.h types.h
