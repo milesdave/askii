@@ -3,8 +3,7 @@
 #include "config.h"
 #include "graphics.h"
 
-// ncurses setup
-void init_graphics()
+void init_graphics(void)
 {
 	initscr();
 	start_color();
@@ -15,25 +14,22 @@ void init_graphics()
 	noecho();
 	refresh();
 
-	// colour pairs
 	init_pair(COLOUR_PLAYER_ID, COLOUR_PLAYER, -1);
 	init_pair(COLOUR_TREE_ID, COLOUR_TREE, -1);
 }
 
 
-// ncurses clean-up
-void end_graphics()
+void end_graphics(void)
 {
 	endwin();
 }
 
-// renders a sprite with the specified colour spec
-void render(const sprite_t *s, const colour_spec_t *c)
+void render_sprite(const sprite_t *s)
 {
-	if(c->len == 1)
-		mvprintw(s->y, s->x, "%c", s->c);
+	if(s->col.len == 1)
+		mvprintw(s->y, s->x, "%c", s->ch);			// tree
 	else
-		mvprintw(s->y, s->x, "%c%1$c", s->c);
+		mvprintw(s->y, s->x, "%c%1$c", s->ch);		// player
 
-	mvchgat(s->y, s->x, c->len, c->attr, c->pair, NULL);
+	mvchgat(s->y, s->x, s->col.len, s->col.attr, s->col.pair, NULL);
 }

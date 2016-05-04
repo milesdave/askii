@@ -14,4 +14,7 @@
 #define COLOUR_TREE_ID 2
 #define COLOUR_TREE COLOR_GREEN
 
+// limits
+#define MAX_TREES 10
+
 #endif

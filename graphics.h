@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-void init_graphics();
-void end_graphics();
-void render(const sprite_t*, const colour_spec_t*);
+void init_graphics(void);
+void end_graphics(void);
+void render_sprite(const sprite_t*);
 
 #endif

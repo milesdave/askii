@@ -10,17 +10,18 @@ typedef enum
 
 typedef struct
 {
-	int x;
-	int y;
-	char c;
-	dir_t d;
-} sprite_t;
-
-typedef struct
-{
 	int pair;
 	int len;
 	int attr;
-} colour_spec_t;
+} colour_t;
+
+typedef struct
+{
+	int x;
+	int y;
+	char ch;
+	dir_t dir;
+	colour_t col;
+} sprite_t;
 
 #endif
