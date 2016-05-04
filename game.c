@@ -34,11 +34,20 @@ void loop(void)
 
 		switch(in)
 		{
-			case KEY_QUIT:
-				quit = true;
-				break;
-			default:
-				break;
+		case KEY_QUIT:
+			quit = true;
+			break;
+		case KEY_LEFT:
+			set_dir(&player, DIR_LEFT);
+			break;
+		case KEY_DOWN:
+			set_dir(&player, DIR_DOWN);
+			break;
+		case KEY_RIGHT:
+			set_dir(&player, DIR_RIGHT);
+			break;
+		default:
+			break;
 		}
 
 		render();
