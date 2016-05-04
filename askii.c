@@ -1,19 +1,15 @@
 #include <ncurses.h>
+#include "config.h"
+#include "graphics.h"
+#include "types.h"
 
 int main(void)
 {
-	initscr();
-	start_color();
-	use_default_colors();
-	curs_set(0);
-	cbreak();
-	keypad(stdscr, true);
-	noecho();
+	init_graphics();
+	mvprintw(2, 5, "Hello world");
 	refresh();
-
-	mvprintw(5, 5, "Hello world");
-
 	getch();
-	endwin();
+	end_graphics();
+
 	return 0;
 }
