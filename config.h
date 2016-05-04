@@ -17,4 +17,7 @@
 // limits
 #define MAX_TREES 10
 
+// keys
+#define KEY_QUIT 'q'
+
 #endif

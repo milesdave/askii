@@ -1,9 +1,17 @@
+#include <ncurses.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "game.h"
 #include "graphics.h"
+#include "util.h"
+
+#define MS_PER_FRAME (1000 / 60)
 
 void setup(void)
 {
 	init_graphics();
+
+	quit = false;
 
 	player.x = 0;
 	player.y = 0;
@@ -12,6 +20,30 @@ void setup(void)
 	player.col.pair = COLOUR_PLAYER_ID;
 	player.col.len = 2;
 	player.col.attr = A_BOLD;
+
+	// change to non-blocking i/o
+	nodelay(stdscr, true);
+}
+
+void loop(void)
+{
+	while(!quit)
+	{
+		long start = get_time();
+		int in = getch();
+
+		switch(in)
+		{
+			case KEY_QUIT:
+				quit = true;
+				break;
+			default:
+				break;
+		}
+
+		render();
+		usleep((start + MS_PER_FRAME - get_time()) * 1000);
+	}
 }
 
 void render(void)

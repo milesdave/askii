@@ -4,10 +4,7 @@
 int main(void)
 {
 	setup();
-
-	render();
-
-	getch();
+	loop();
 	end();
 	return 0;
 }
