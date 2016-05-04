@@ -16,6 +16,7 @@
 
 // limits
 #define MAX_TREES 10
+#define SPAWN_INTERVAL 4
 
 // keys
 #define KEY_QUIT 'q'
