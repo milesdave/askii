@@ -5,6 +5,6 @@
 
 void init_graphics(void);
 void end_graphics(void);
-void render_sprite(sprite_t*);
+void render_sprite(const sprite_t*);
 
 #endif

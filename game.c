@@ -1,6 +1,6 @@
 #define _DEFAULT_SOURCE
-#include <ncurses.h>
 #include <math.h>
+#include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
@@ -88,7 +88,7 @@ void update(void)
 			num_trees--;
 	}*/
 
-	/* TODO spawn trees
+	// TODO spawn trees
 	if(updates == SPAWN_INTERVAL)
 	{
 		int min, max, x;
@@ -100,10 +100,10 @@ void update(void)
 		x = (max - min + 1) * _rand + min;
 
 		sprite_t tree = {x, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
-		list_insert(trees, &tree);
+		trees_size = list_push(trees, &tree);
 
 		updates = 0;
-	} else { updates++; }*/
+	} else { updates++; }
 
 	// TODO update speed
 	// TODO check collisions
