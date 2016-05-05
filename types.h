@@ -24,4 +24,11 @@ typedef struct
 	colour_t col;
 } sprite_t;
 
+typedef struct node_t node_t;
+struct node_t
+{
+	sprite_t data;
+	node_t *next;
+};
+
 #endif

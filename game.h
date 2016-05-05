@@ -9,8 +9,7 @@ int termw, termh;
 int updates, distance;
 bool quit;
 sprite_t player;
-sprite_t trees[MAX_TREES];	// TODO going to need a list
-int num_trees;
+node_t *trees;
 
 void setup(void);
 void loop(void);

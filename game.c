@@ -65,7 +65,7 @@ void update(void)
 {
 	distance++;
 
-	// TODO move/delete existing trees
+	/* TODO move/delete existing trees
 	for(int i = 0; i < num_trees; i++)
 	{
 		mvaddch(trees[i].y, trees[i].x, ' ');
@@ -103,7 +103,7 @@ void update(void)
 		num_trees++;
 		updates = 0;
 	}
-	else { updates++; }
+	else { updates++; }*/
 
 	// TODO update speed
 	// TODO check collisions
@@ -111,8 +111,8 @@ void update(void)
 
 void render(void)
 {
-	for(int i = 0; i < num_trees; i++)
-		render_sprite(&trees[i]);
+	/*for(int i = 0; i < num_trees; i++)
+		render_sprite(&trees[i]);*/
 
 	render_sprite(&player);
 	// TODO render score
