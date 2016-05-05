@@ -1,8 +1,8 @@
 EXE = askii
 
 CC = gcc
-CFLAGS = -std=gnu99 -Wall
-LDLIBS = -lncurses
+CFLAGS = -std=c99 -Wall
+LDLIBS = -lncurses -lm
 
 RM = rm -f
 CP = cp -p

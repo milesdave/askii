@@ -1,4 +1,6 @@
+#define _DEFAULT_SOURCE
 #include <ncurses.h>
+#include <math.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
@@ -14,7 +16,7 @@ void setup(void)
 	init_graphics();
 
 	getmaxyx(stdscr, termh, termw);
-	updates = distance = 0;
+	updates = dist = 0;
 	quit = false;
 
 	player.x = termw / 2;
@@ -68,7 +70,7 @@ void loop(void)
 
 void update(void)
 {
-	distance++;
+	dist++;
 
 	/* TODO move/delete existing trees
 	for(int i = 0; i < num_trees; i++)
@@ -97,18 +99,11 @@ void update(void)
 		_rand = (double)rand() / RAND_MAX;
 		x = (max - min + 1) * _rand + min;
 
-		trees[num_trees].x = x;
-		trees[num_trees].y = termh;
-		trees[num_trees].ch = CHAR_TREE;
-		trees[num_trees].dir = DIR_DOWN;
-		trees[num_trees].col.pair = COLOUR_TREE_ID;
-		trees[num_trees].col.len = 1;
-		trees[num_trees].col.attr = A_BOLD;
+		sprite_t tree = {x, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
+		list_insert(trees, &tree);
 
-		num_trees++;
 		updates = 0;
-	}
-	else { updates++; }*/
+	} else { updates++; }*/
 
 	// TODO update speed
 	// TODO check collisions
@@ -118,7 +113,13 @@ void render(void)
 {
 	list_loop(trees, render_sprite);
 	render_sprite(&player);
-	// TODO render score
+
+	// render score
+	int len = (dist == 0 ? 1 : (int)(log10(dist) + 1));
+	mvprintw(0, termw - 11, "%10dC", dist);
+	mvchgat(0, termw - (len + 1), 10, A_BOLD, COLOUR_SCORE_ID, NULL);
+	mvchgat(0, termw - 1, 1, A_NORMAL, COLOUR_SCORE_ID, NULL);
+
 	refresh();
 }
 

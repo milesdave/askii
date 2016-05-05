@@ -6,7 +6,7 @@
 #include "types.h"
 
 int termw, termh;
-int updates, distance;
+int updates, dist;
 bool quit;
 sprite_t player;
 node_t *trees;

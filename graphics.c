@@ -16,6 +16,7 @@ void init_graphics(void)
 
 	init_pair(COLOUR_PLAYER_ID, COLOUR_PLAYER, -1);
 	init_pair(COLOUR_TREE_ID, COLOUR_TREE, -1);
+	init_pair(COLOUR_SCORE_ID, COLOUR_SCORE_FG, COLOUR_SCORE_BG);
 }
 
 
