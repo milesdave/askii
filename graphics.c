@@ -24,7 +24,7 @@ void end_graphics(void)
 	endwin();
 }
 
-void render_sprite(const sprite_t *s)
+void render_sprite(sprite_t *s)
 {
 	if(s->col.len == 1)
 		mvprintw(s->y, s->x, "%c", s->ch);			// tree

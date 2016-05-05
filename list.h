@@ -5,5 +5,6 @@
 
 node_t* list_init(sprite_t*);
 void list_free(node_t*);
+void list_loop(node_t*, action);
 
 #endif

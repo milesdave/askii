@@ -31,4 +31,6 @@ struct node_t
 	node_t *next;
 };
 
+typedef void (*action)(sprite_t*);
+
 #endif

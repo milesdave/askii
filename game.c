@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "game.h"
 #include "graphics.h"
+#include "list.h"
 #include "util.h"
 
 #define MS_PER_FRAME (1000 / 60)
@@ -23,6 +24,10 @@ void setup(void)
 	player.col.pair = COLOUR_PLAYER_ID;
 	player.col.len = 2;
 	player.col.attr = A_BOLD;
+
+	// TODO tmp?
+	sprite_t tree = {termw / 2, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
+	trees = list_init(&tree);
 
 	srand(time(NULL));
 
@@ -79,9 +84,9 @@ void update(void)
 
 		if(trees[i].y < 0)
 			num_trees--;
-	}
+	}*/
 
-	// TODO spawn trees
+	/* TODO spawn trees
 	if(updates == SPAWN_INTERVAL)
 	{
 		int min, max, x;
@@ -111,9 +116,7 @@ void update(void)
 
 void render(void)
 {
-	/*for(int i = 0; i < num_trees; i++)
-		render_sprite(&trees[i]);*/
-
+	list_loop(trees, render_sprite);
 	render_sprite(&player);
 	// TODO render score
 	refresh();
@@ -121,5 +124,6 @@ void render(void)
 
 void end(void)
 {
+	list_free(trees);
 	end_graphics();
 }

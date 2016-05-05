@@ -49,4 +49,3 @@ void set_dir(sprite_t *s, const dir_t d)
 		break;
 	}
 }
-
