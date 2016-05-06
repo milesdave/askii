@@ -23,7 +23,9 @@ int main(void)
 
 void setup(void)
 {
+	// TODO maybe move to main()
 	init_graphics();
+	srand(time(NULL));
 
 	getmaxyx(stdscr, termh, termw);
 	updates = dist = 0;
@@ -38,8 +40,6 @@ void setup(void)
 	player.col.pair = COLOUR_PLAYER_ID;
 	player.col.len = 2;
 	player.col.attr = A_BOLD;
-
-	srand(time(NULL));
 
 	// change to non-blocking i/o
 	nodelay(stdscr, true);
@@ -125,6 +125,15 @@ void update(void)
 		fps += SPEED_INCREASE;
 
 	// TODO check collisions
+	for(int i = 0; i < trees_size; i++)
+	{
+		sprite_t *tree = list_get(&trees, i);
+		if((tree->x == player.x || tree->x == (player.x + 1)) && tree->y == player.y)
+		{
+			mvprintw(1, 0, "Game over!");
+			break;
+		}
+	}
 }
 
 void render(void)
@@ -141,6 +150,7 @@ void render(void)
 	refresh();
 }
 
+// TODO maybe merge with main()
 void end(void)
 {
 	list_free(&trees);
