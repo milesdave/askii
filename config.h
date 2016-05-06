@@ -19,6 +19,10 @@
 
 // limits
 #define SPAWN_INTERVAL 4
+#define SPEED_INIT 10
+#define SPEED_MAX 70
+#define SPEED_UPDATE 100
+#define SPEED_INCREASE 2
 
 // keys
 #define KEY_QUIT 'q'

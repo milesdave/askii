@@ -33,7 +33,7 @@ int list_add(node_t **h, sprite_t *s)
 		return 1;
 	}
 
-	int c = 0;
+	int c = 1;
 	node_t *current = *h;
 
 	// loop to end and count

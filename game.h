@@ -6,7 +6,7 @@
 #include "types.h"
 
 int termw, termh;
-int updates, dist;
+int dist, updates, fps;
 bool quit;
 sprite_t player;
 list_head_t *trees;

@@ -9,7 +9,7 @@
 #include "list.h"
 #include "util.h"
 
-#define MS_PER_FRAME (1000 / 30)
+#define MS_PER_FRAME (1000 / fps)
 
 void setup(void)
 {
@@ -17,6 +17,7 @@ void setup(void)
 
 	getmaxyx(stdscr, termh, termw);
 	updates = dist = 0;
+	fps = SPEED_INIT;
 	quit = false;
 	trees = NULL;
 
@@ -109,7 +110,10 @@ void update(void)
 		updates = 0;
 	} else { updates++; }
 
-	// TODO update speed
+	// update speed
+	if(fps < SPEED_MAX && dist % SPEED_UPDATE == 0)
+		fps += SPEED_INCREASE;
+
 	// TODO check collisions
 }
 

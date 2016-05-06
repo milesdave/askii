@@ -19,7 +19,6 @@ void init_graphics(void)
 	init_pair(COLOUR_SCORE_ID, COLOUR_SCORE_FG, COLOUR_SCORE_BG);
 }
 
-
 void end_graphics(void)
 {
 	endwin();
