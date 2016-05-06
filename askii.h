@@ -1,12 +1,13 @@
 #ifndef _GAME_H
 #define _GAME_H
 
-#include <stdbool.h>
-#include "config.h"
 #include "types.h"
 
-int termw, termh;
-int dist, updates, fps;
+int termw;
+int termh;
+int dist;
+int updates;
+int fps;
 bool quit;
 sprite_t player;
 list_head_t *trees;
