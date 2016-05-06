@@ -3,9 +3,10 @@
 
 #include "types.h"
 
-node_t* list_init(sprite_t*);
-void list_free(node_t*);
-void list_loop(node_t*, action);
-int list_push(node_t*, sprite_t*);
+void list_free(node_t**);
+void list_loop(node_t**, action);
+int list_add(node_t**, sprite_t*);
+void list_remove(node_t**, int);
+sprite_t* list_get(node_t**, int);
 
 #endif

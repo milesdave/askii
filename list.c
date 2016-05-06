@@ -1,18 +1,9 @@
 #include <stdlib.h>
 #include "list.h"
 
-node_t* list_init(sprite_t *s)
+void list_free(node_t **h)
 {
-	node_t *n;
-	n = (node_t*)malloc(sizeof(node_t));
-	n->data = *s;
-	n->next = NULL;
-	return n;
-}
-
-void list_free(node_t *h)
-{
-	node_t *current = h;
+	node_t *current = *h;
 	while(current != NULL)
 	{
 		node_t *tmp = current;
@@ -21,9 +12,9 @@ void list_free(node_t *h)
 	}
 }
 
-void list_loop(node_t *h, action a)
+void list_loop(node_t **h, action a)
 {
-	node_t *current = h;
+	node_t *current = *h;
 	while(current != NULL)
 	{
 		a(&current->data);
@@ -31,21 +22,59 @@ void list_loop(node_t *h, action a)
 	}
 }
 
-int list_push(node_t *h, sprite_t *s)
+int list_add(node_t **h, sprite_t *s)
 {
-	int size = 0;
-	node_t *current = h;
+	// empty list
+	if(*h == NULL)
+	{
+		*h = (node_t*)malloc(sizeof(node_t));
+		(*h)->data = *s;
+		(*h)->next = NULL;
+		return 1;
+	}
 
+	int c = 0;
+	node_t *current = *h;
+
+	// loop to end and count
 	while(current->next != NULL)
 	{
 		current = current->next;
-		size++;
+		c++;
 	}
 
+	// add new node at end
 	node_t *new = (node_t*)malloc(sizeof(node_t));
 	new->data = *s;
 	new->next = NULL;
 	current->next = new;
 
-	return size++;
+	return ++c;
+}
+
+// TODO
+void list_remove(node_t **h, int i)
+{
+	//
+}
+
+sprite_t* list_get(node_t **h, int i)
+{
+	// head passed in is 0
+	if(i == 0)
+		return &(*h)->data;
+
+	int c = 0;
+	node_t *current = *h;
+
+	while(current != NULL)
+	{
+		if(c == i)
+			return &current->data;
+
+		current = current->next;
+		c++;
+	}
+
+	return NULL;
 }

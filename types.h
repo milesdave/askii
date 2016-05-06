@@ -25,6 +25,7 @@ typedef struct
 } sprite_t;
 
 typedef struct node_t node_t;
+typedef struct node_t list_head_t;
 struct node_t
 {
 	sprite_t data;

@@ -9,7 +9,7 @@
 #include "list.h"
 #include "util.h"
 
-#define MS_PER_FRAME (1000 / 60)
+#define MS_PER_FRAME (1000 / 30)
 
 void setup(void)
 {
@@ -18,6 +18,7 @@ void setup(void)
 	getmaxyx(stdscr, termh, termw);
 	updates = dist = 0;
 	quit = false;
+	trees = NULL;
 
 	player.x = termw / 2;
 	player.y = termh / 3;
@@ -26,10 +27,6 @@ void setup(void)
 	player.col.pair = COLOUR_PLAYER_ID;
 	player.col.len = 2;
 	player.col.attr = A_BOLD;
-
-	// TODO tmp?
-	sprite_t tree = {termw / 2, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
-	trees = list_init(&tree);
 
 	srand(time(NULL));
 
@@ -72,23 +69,28 @@ void update(void)
 {
 	dist++;
 
-	/* TODO move/delete existing trees
-	for(int i = 0; i < num_trees; i++)
+	// move/delete existing trees
+	for(int i = 0; i < trees_size; i++)
 	{
-		mvaddch(trees[i].y, trees[i].x, ' ');
+		sprite_t *tree = list_get(&trees, i);
 
+		/* TODO delete
+		if(tree->y < 0)
+		{
+			list_remove(trees, i);
+			trees_size--;
+		}*/
+
+		// repaint/move
+		mvprintw(tree->y, tree->x, " ");
 		if(player.dir == DIR_LEFT)
-			trees[i].x++;
+			tree->x++;
 		else if(player.dir == DIR_RIGHT)
-			trees[i].x--;
+			tree->x--;
+		tree->y--;
+	}
 
-		trees[i].y--;
-
-		if(trees[i].y < 0)
-			num_trees--;
-	}*/
-
-	// TODO spawn trees
+	// spawn trees
 	if(updates == SPAWN_INTERVAL)
 	{
 		int min, max, x;
@@ -100,7 +102,9 @@ void update(void)
 		x = (max - min + 1) * _rand + min;
 
 		sprite_t tree = {x, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
-		trees_size = list_push(trees, &tree);
+		trees_size = list_add(&trees, &tree);
+
+		mvprintw(0, 0, "Trees: %d", trees_size);
 
 		updates = 0;
 	} else { updates++; }
@@ -111,7 +115,7 @@ void update(void)
 
 void render(void)
 {
-	list_loop(trees, render_sprite);
+	list_loop(&trees, render_sprite);
 	render_sprite(&player);
 
 	// render score
@@ -125,6 +129,6 @@ void render(void)
 
 void end(void)
 {
-	list_free(trees);
+	list_free(&trees);
 	end_graphics();
 }
