@@ -15,23 +15,24 @@
 
 int main(void)
 {
+	init_graphics();
+	srand(time(NULL));
+	trees = NULL;
+
 	setup();
 	loop();
-	end();
+
+	list_free(&trees);
+	end_graphics();
 	return 0;
 }
 
 void setup(void)
 {
-	// TODO maybe move to main()
-	init_graphics();
-	srand(time(NULL));
-
 	getmaxyx(stdscr, termh, termw);
 	updates = dist = 0;
 	fps = SPEED_INIT;
 	quit = false;
-	trees = NULL;
 
 	player.x = termw / 2;
 	player.y = termh / 3;
@@ -72,7 +73,10 @@ void loop(void)
 
 		update();
 		render();
-		usleep((start + MS_PER_FRAME - get_time()) * 1000);
+
+		// make sure delay is not negative - can be after gameover()
+		long delay = (start + MS_PER_FRAME - get_time()) * 1000;
+		if(delay > 0) usleep(delay);
 	}
 }
 
@@ -124,13 +128,14 @@ void update(void)
 	if(fps < SPEED_MAX && dist % SPEED_INTERVAL == 0)
 		fps += SPEED_INCREASE;
 
-	// TODO check collisions
+	// check collisions
 	for(int i = 0; i < trees_size; i++)
 	{
 		sprite_t *tree = list_get(&trees, i);
 		if((tree->x == player.x || tree->x == (player.x + 1)) && tree->y == player.y)
 		{
-			mvprintw(1, 0, "Game over!");
+			gameover();
+			if(!quit) setup();
 			break;
 		}
 	}
@@ -150,9 +155,25 @@ void render(void)
 	refresh();
 }
 
-// TODO maybe merge with main()
-void end(void)
+void gameover(void)
 {
-	list_free(&trees);
-	end_graphics();
+	// switch back to blocking i/o
+	nodelay(stdscr, false);
+
+	// TODO gameover window
+	mvprintw(1, 0, "Game over!");
+
+	player.ch = CHAR_PLAYER_GAMEOVER;
+	render();
+
+	// hide score
+	for(int i = 0; i < 10; i++)
+		mvprintw(0, termw - i, " ");
+
+	int x = getch();
+	if(x == KEY_QUIT)
+		quit = true;
+
+	// return to non-blocking
+	nodelay(stdscr, true);
 }

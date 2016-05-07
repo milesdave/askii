@@ -17,6 +17,6 @@ void setup(void);
 void loop(void);
 void update(void);
 void render(void);
-void end(void);
+void gameover(void);
 
 #endif
