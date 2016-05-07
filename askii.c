@@ -161,7 +161,7 @@ void gameover(void)
 	nodelay(stdscr, false);
 
 	// TODO gameover window
-	mvprintw(1, 0, "Game over!");
+	WINDOW *win = create_win(15, 5, termw / 2 - (15 / 2), termh / 2 - (5 / 2), COLOUR_WINDOW_ID);
 
 	player.ch = CHAR_PLAYER_GAMEOVER;
 	render();
@@ -173,6 +173,8 @@ void gameover(void)
 	int x = getch();
 	if(x == KEY_QUIT)
 		quit = true;
+
+	del_win(win);
 
 	// return to non-blocking
 	nodelay(stdscr, true);
