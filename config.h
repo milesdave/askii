@@ -30,4 +30,14 @@
 // keys
 #define KEY_QUIT 'q'
 
+// geometry
+#define WIN_GAMEOVER_W 15
+#define WIN_GAMEOVER_H 5
+#define WIN_GAMEOVER_X ((termw / 2) - (WIN_GAMEOVER_W / 2))
+#define WIN_GAMEOVER_Y ((termh / 2) - (WIN_GAMEOVER_H / 2))
+
+// text
+#define GAMEOVER_TEXT_1 "OUCH!"
+#define GAMEOVER_TEXT_2 "YOU MADE IT"
+
 #endif

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "config.h"
 #include "graphics.h"
 
@@ -49,4 +50,35 @@ void del_win(WINDOW *w)
 	wbkgd(w, COLOR_PAIR(0));
 	wrefresh(w);
 	delwin(w);
+}
+
+void win_text(WINDOW *w, const char *t, int y, align_t a)
+{
+	mvwprintw(w, y, align_x(w, a, strlen(t)), t);
+}
+
+void win_bold(WINDOW *w, int y, int l, align_t a)
+{
+	mvwchgat(w, y, align_x(w, a, l), l, A_BOLD, COLOUR_WINDOW_ID, NULL);
+}
+
+int align_x(WINDOW *w, align_t a, int l)
+{
+	int winw, x;
+	getmaxyx(w, winw, winw);
+
+	switch(a)
+	{
+	case ALIGN_LEFT:
+		x = 1;
+		break;
+	case ALIGN_RIGHT:
+		x = (winw / 2) - l;
+		break;
+	case ALIGN_CENTRE:
+		x = (winw / 2) - (l / 2);
+		break;
+	}
+
+	return x;
 }

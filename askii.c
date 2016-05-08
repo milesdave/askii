@@ -2,6 +2,7 @@
 #include <math.h>
 #include <ncurses.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <unistd.h>
 #include "config.h"
@@ -160,16 +161,24 @@ void gameover(void)
 	// switch back to blocking i/o
 	nodelay(stdscr, false);
 
-	// TODO gameover window
-	WINDOW *win = create_win(15, 5, termw / 2 - (15 / 2), termh / 2 - (5 / 2), COLOUR_WINDOW_ID);
-
 	player.ch = CHAR_PLAYER_GAMEOVER;
 	render();
+
+	// gameover window
+	WINDOW *win = create_win(WIN_GAMEOVER_W, WIN_GAMEOVER_H, WIN_GAMEOVER_X, WIN_GAMEOVER_Y, COLOUR_WINDOW_ID);
+	win_text(win, GAMEOVER_TEXT_1, 1, ALIGN_CENTRE);
+	win_text(win, GAMEOVER_TEXT_2, 2, ALIGN_CENTRE);
+	int len = ((int)log10(dist) + 1);
+	mvwprintw(win, 3, align_x(win, ALIGN_CENTRE, len), "%dC", dist);
+	win_bold(win, 1, strlen(GAMEOVER_TEXT_1), ALIGN_CENTRE);
+	win_bold(win, 3, len, ALIGN_CENTRE);
+	wrefresh(win);
 
 	// hide score
 	for(int i = 0; i < 10; i++)
 		mvprintw(0, termw - i, " ");
 
+	// TODO not quite any key
 	int x = getch();
 	if(x == KEY_QUIT)
 		quit = true;

@@ -8,6 +8,13 @@ typedef enum
 	DIR_RIGHT
 } dir_t;
 
+typedef enum
+{
+	ALIGN_LEFT,
+	ALIGN_RIGHT,
+	ALIGN_CENTRE
+} align_t;
+
 typedef struct
 {
 	int pair;
