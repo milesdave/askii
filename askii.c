@@ -59,13 +59,13 @@ void loop(void)
 		case KEY_QUIT:
 			quit = true;
 			break;
-		case KEY_LEFT:
+		case _KEY_LEFT:
 			set_dir(&player, DIR_LEFT);
 			break;
-		case KEY_DOWN:
+		case _KEY_DOWN:
 			set_dir(&player, DIR_DOWN);
 			break;
-		case KEY_RIGHT:
+		case _KEY_RIGHT:
 			set_dir(&player, DIR_RIGHT);
 			break;
 		default:
@@ -178,9 +178,8 @@ void gameover(void)
 	for(int i = 0; i < 10; i++)
 		mvprintw(0, termw - i, " ");
 
-	// TODO not quite any key
-	int x = getch();
-	if(x == KEY_QUIT)
+	// wait for any key or quit
+	if(any_key() == KEY_QUIT)
 		quit = true;
 
 	del_win(win);

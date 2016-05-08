@@ -52,10 +52,9 @@ int list_add(node_t **h, sprite_t *s)
 	return ++c;
 }
 
-// TODO
 void list_remove(node_t **h, int i)
 {
-	//
+	// TODO
 }
 
 sprite_t* list_get(node_t **h, int i)

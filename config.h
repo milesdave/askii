@@ -29,6 +29,10 @@
 
 // keys
 #define KEY_QUIT 'q'
+#define KEY_PAUSE 'p'
+#define _KEY_LEFT KEY_LEFT
+#define _KEY_DOWN KEY_DOWN
+#define _KEY_RIGHT KEY_RIGHT
 
 // geometry
 #define WIN_GAMEOVER_W 15

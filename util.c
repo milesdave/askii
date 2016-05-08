@@ -1,3 +1,4 @@
+#include <ncurses.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include "config.h"
@@ -48,4 +49,13 @@ void set_dir(sprite_t *s, const dir_t d)
 		}
 		break;
 	}
+}
+
+int any_key(void)
+{
+	int x = getch();
+	while(x == KEY_PAUSE || x == _KEY_LEFT || x == _KEY_DOWN || x == _KEY_RIGHT)
+		x = getch();
+
+	return x;
 }
