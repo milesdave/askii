@@ -18,6 +18,7 @@ int main(void)
 {
 	init_graphics();
 	srand(time(NULL));
+	updates = 0;
 	trees = NULL;
 
 	setup();
@@ -31,11 +32,11 @@ int main(void)
 void setup(void)
 {
 	getmaxyx(stdscr, termh, termw);
-	updates = dist = 0;
+	dist = 0;
 	fps = SPEED_INIT;
 	quit = false;
 
-	player.x = termw / 2;
+	player.x = (termw / 2) - 1;
 	player.y = termh / 3;
 	player.ch = CHAR_PLAYER_DOWN;
 	player.dir = DIR_DOWN;
@@ -58,6 +59,9 @@ void loop(void)
 		{
 		case KEY_QUIT:
 			quit = true;
+			break;
+		case KEY_PAUSE:
+			paused();
 			break;
 		case _KEY_LEFT:
 			set_dir(&player, DIR_LEFT);
@@ -139,8 +143,6 @@ void update(void)
 			break;
 		}
 	}
-
-	mvprintw(0, 0, "Trees: %d", trees_size);
 }
 
 void render(void)
@@ -167,11 +169,11 @@ void gameover(void)
 
 	// gameover window
 	WINDOW *win = create_win(WIN_GAMEOVER_W, WIN_GAMEOVER_H, WIN_GAMEOVER_X, WIN_GAMEOVER_Y, COLOUR_WINDOW_ID);
-	win_text(win, GAMEOVER_TEXT_1, 1, ALIGN_CENTRE);
-	win_text(win, GAMEOVER_TEXT_2, 2, ALIGN_CENTRE);
+	win_text(win, TEXT_GAMEOVER_1, 1, ALIGN_CENTRE);
+	win_text(win, TEXT_GAMEOVER_2, 2, ALIGN_CENTRE);
 	int len = ((int)log10(dist) + 1);
 	mvwprintw(win, 3, align_x(win, ALIGN_CENTRE, len), "%dC", dist);
-	win_bold(win, 1, strlen(GAMEOVER_TEXT_1), ALIGN_CENTRE);
+	win_bold(win, 1, strlen(TEXT_GAMEOVER_1), ALIGN_CENTRE);
 	win_bold(win, 3, len, ALIGN_CENTRE);
 	wrefresh(win);
 
@@ -186,5 +188,24 @@ void gameover(void)
 	del_win(win);
 
 	// return to non-blocking
+	nodelay(stdscr, true);
+}
+
+void paused(void)
+{
+	nodelay(stdscr, false);
+
+	WINDOW *win = create_win(WIN_PAUSED_W, WIN_PAUSED_H, WIN_PAUSED_X, WIN_PAUSED_Y, COLOUR_WINDOW_ID);
+	win_text(win, TEXT_PAUSED, 1, ALIGN_CENTRE);
+	win_bold(win, 1, strlen(TEXT_PAUSED), ALIGN_CENTRE);
+	wrefresh(win);
+
+	// wait for pause to be pressed again
+	int x = getch();
+	while(x != KEY_PAUSE)
+		x = getch();
+
+	del_win(win);
+
 	nodelay(stdscr, true);
 }

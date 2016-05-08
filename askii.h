@@ -18,5 +18,6 @@ void loop(void);
 void update(void);
 void render(void);
 void gameover(void);
+void paused(void);
 
 #endif

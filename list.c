@@ -27,7 +27,7 @@ int list_add(node_t **h, sprite_t *s)
 	// empty list
 	if(*h == NULL)
 	{
-		*h = (node_t*)malloc(sizeof(node_t));
+		*h = malloc(sizeof(node_t));
 		(*h)->data = *s;
 		(*h)->next = NULL;
 		return 1;
@@ -44,7 +44,7 @@ int list_add(node_t **h, sprite_t *s)
 	}
 
 	// add new node at end
-	node_t *new = (node_t*)malloc(sizeof(node_t));
+	node_t *new = malloc(sizeof(node_t));
 	new->data = *s;
 	new->next = NULL;
 	current->next = new;

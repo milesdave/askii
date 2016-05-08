@@ -39,9 +39,14 @@
 #define WIN_GAMEOVER_H 5
 #define WIN_GAMEOVER_X ((termw / 2) - (WIN_GAMEOVER_W / 2))
 #define WIN_GAMEOVER_Y ((termh / 2) - (WIN_GAMEOVER_H / 2))
+#define WIN_PAUSED_W 10
+#define WIN_PAUSED_H 3
+#define WIN_PAUSED_X ((termw / 2) - (WIN_PAUSED_W / 2))
+#define WIN_PAUSED_Y (termh - (termh / 3))
 
 // text
-#define GAMEOVER_TEXT_1 "OUCH!"
-#define GAMEOVER_TEXT_2 "YOU MADE IT"
+#define TEXT_GAMEOVER_1 "OUCH!"
+#define TEXT_GAMEOVER_2 "YOU MADE IT"
+#define TEXT_PAUSED "PAUSED"
 
 #endif
