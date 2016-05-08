@@ -52,16 +52,52 @@ int list_add(node_t **h, sprite_t *s)
 	return ++c;
 }
 
-void list_remove(node_t **h, int i)
+void list_remove(node_t **h, const int i)
 {
-	// TODO
+	if(*h == NULL) return;
+
+	node_t *current = *h;
+
+	// remove head
+	if(i == 0)
+	{
+		if(current->next != NULL)	// next node exists
+			*h = current->next;
+		else						// no next node
+			*h = NULL;
+
+		free(current);
+		return;
+	}
+
+	int c = 0;
+	node_t *last;
+
+	// loop to node to delete
+	while(current != NULL)
+	{
+		// found node to delete
+		if(c == i)
+		{
+			if(current->next != NULL)		// next node exists
+				last->next = current->next;
+			else							// no next node
+				last->next = NULL;
+
+			free(current);
+			return;
+		}
+
+		last = current;
+		current = current->next;
+		c++;
+	}
 }
 
-sprite_t* list_get(node_t **h, int i)
+sprite_t* list_get(node_t **h, const int i)
 {
 	// head passed in is 0
-	if(i == 0)
-		return &(*h)->data;
+	if(i == 0) return &(*h)->data;
 
 	int c = 0;
 	node_t *current = *h;

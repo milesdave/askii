@@ -90,12 +90,13 @@ void update(void)
 	{
 		sprite_t *tree = list_get(&trees, i);
 
-		/* TODO delete
+		// delete off screen trees
 		if(tree->y < 0)
 		{
-			list_remove(trees, i);
+			list_remove(&trees, i);
 			trees_size--;
-		}*/
+			continue;
+		}
 
 		// move/repaint
 		mvprintw(tree->y, tree->x, " ");
@@ -120,8 +121,6 @@ void update(void)
 		sprite_t tree = {x, termh, CHAR_TREE, DIR_DOWN, {COLOUR_TREE_ID, 1, A_BOLD}};
 		trees_size = list_add(&trees, &tree);
 
-		mvprintw(0, 0, "Trees: %d", trees_size);
-
 		updates = 0;
 	} else { updates++; }
 
@@ -140,6 +139,8 @@ void update(void)
 			break;
 		}
 	}
+
+	mvprintw(0, 0, "Trees: %d", trees_size);
 }
 
 void render(void)
