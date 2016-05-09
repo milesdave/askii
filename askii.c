@@ -22,23 +22,6 @@ int main(void)
 	updates = 0;
 	trees = NULL;
 
-	// title window
-	WINDOW *win = create_win(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_WINDOW_ID);
-	win_text(win, TEXT_TITLE_1, 0, ALIGN_RIGHT);
-	win_text(win, TEXT_TITLE_2, 1, ALIGN_LEFT);
-	win_text(win, TEXT_TITLE_3, 2, ALIGN_LEFT);
-	win_text(win, TEXT_TITLE_4, 3, ALIGN_LEFT);
-	win_text(win, TEXT_TITLE_5, 4, ALIGN_LEFT);
-	win_bold(win, 0, strlen(TEXT_TITLE_1), ALIGN_RIGHT);
-	win_bold(win, 1, 7, ALIGN_LEFT);
-	win_bold(win, 2, 6, ALIGN_LEFT);
-	win_bold(win, 3, 1, ALIGN_LEFT);
-	win_bold(win, 4, 1, ALIGN_LEFT);
-	wrefresh(win);
-
-	getch();
-	del_win(win);
-
 	setup();
 	loop();
 
@@ -190,16 +173,14 @@ void gameover(void)
 	win_text(win, TEXT_GAMEOVER_2, 2, ALIGN_CENTRE);
 	win_text(win, TEXT_GAMEOVER_3, 4, ALIGN_CENTRE);
 	win_bold(win, 1, strlen(TEXT_GAMEOVER_1), ALIGN_CENTRE);
-
 	// distance
-	int l1 = intlen(dist) + 1;	// +1 for 'C' at end
+	int l1 = intlen(dist) + 1;		// +1 for 'C' at end
 	mvwprintw(win, 3, align_x(win, ALIGN_CENTRE, l1), "%dC", dist);
 	win_bold(win, 3, l1, ALIGN_CENTRE);
-
-	// last run
+	// prev run
 	int l2 = intlen(*score);
 	int diff = dist - *score;
-	int l3 = l2 + intlen(diff) + 5;	// +5 for 'C', sign, etc
+	int l3 = l2 + intlen(diff) + 5;		// +5 for 'C', sign, etc
 	mvwprintw(win, 5, align_x(win, ALIGN_CENTRE, l3), "%dC (%+d)", *score, diff);
 	win_bold(win, 5, l3, ALIGN_CENTRE);
 	wrefresh(win);
@@ -233,6 +214,5 @@ void paused(void)
 		x = getch();
 
 	del_win(win);
-
 	nodelay(stdscr, true);
 }
