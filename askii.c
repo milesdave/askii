@@ -16,10 +16,30 @@
 
 int main(void)
 {
-	init_graphics();
 	srand(time(NULL));
+	init_graphics();
+	getmaxyx(stdscr, termh, termw);
 	updates = 0;
 	trees = NULL;
+
+	// title window
+	WINDOW *win = create_win(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_WINDOW_ID);
+	shadow(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_SHADOW_ID);
+	win_text(win, TEXT_TITLE_1, 0, ALIGN_RIGHT);
+	win_text(win, TEXT_TITLE_2, 1, ALIGN_LEFT);
+	win_text(win, TEXT_TITLE_3, 2, ALIGN_LEFT);
+	win_text(win, TEXT_TITLE_4, 3, ALIGN_LEFT);
+	win_text(win, TEXT_TITLE_5, 4, ALIGN_LEFT);
+	win_bold(win, 0, strlen(TEXT_TITLE_1), ALIGN_RIGHT);
+	win_bold(win, 1, 7, ALIGN_LEFT);
+	win_bold(win, 2, 6, ALIGN_LEFT);
+	win_bold(win, 3, 1, ALIGN_LEFT);
+	win_bold(win, 4, 1, ALIGN_LEFT);
+	wrefresh(win);
+
+	getch();
+	del_win(win);
+	shadow(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, 0);
 
 	setup();
 	loop();
@@ -31,7 +51,6 @@ int main(void)
 
 void setup(void)
 {
-	getmaxyx(stdscr, termh, termw);
 	dist = 0;
 	fps = SPEED_INIT;
 	quit = false;

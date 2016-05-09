@@ -18,6 +18,7 @@ void init_graphics(void)
 	init_pair(COLOUR_TREE_ID, COLOUR_TREE, -1);
 	init_pair(COLOUR_SCORE_ID, COLOUR_SCORE_FG, COLOUR_SCORE_BG);
 	init_pair(COLOUR_WINDOW_ID, COLOUR_SCORE_FG, COLOUR_WINDOW_BG);
+	init_pair(COLOUR_SHADOW_ID, COLOUR_SHADOW, COLOUR_SHADOW);
 }
 
 void end_graphics(void)
@@ -40,7 +41,6 @@ WINDOW* create_win(int w, int h, int x, int y, int c)
 	WINDOW *win = newwin(h, w, y, x);
 	box(win, 0, 0);
 	wbkgd(win, COLOR_PAIR(c));
-	wrefresh(win);
 	return win;
 }
 
@@ -73,7 +73,7 @@ int align_x(WINDOW *w, align_t a, int l)
 		x = 1;
 		break;
 	case ALIGN_RIGHT:
-		x = (winw / 2) - l;
+		x = (winw - l) - 1;
 		break;
 	case ALIGN_CENTRE:
 		x = (winw / 2) - (l / 2);
@@ -81,4 +81,16 @@ int align_x(WINDOW *w, align_t a, int l)
 	}
 
 	return x;
+}
+
+void shadow(int w, int h, int x, int y, int c)
+{
+	// horizontal
+	mvchgat(y + h, x + 1, w, A_NORMAL, c, NULL);
+
+	// vertical
+	for(int i = 0; i < h - 1; i++)
+		mvchgat(y + i + 1, x + w, 1, A_NORMAL, c, NULL);
+
+	refresh();
 }

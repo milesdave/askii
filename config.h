@@ -19,6 +19,8 @@
 #define COLOUR_WINDOW_ID 4
 #define COLOUR_WINDOW_FG COLOR_WHITE
 #define COLOUR_WINDOW_BG COLOR_RED
+#define COLOUR_SHADOW_ID 5
+#define COLOUR_SHADOW COLOR_BLACK
 
 // limits
 #define SPAWN_INTERVAL 4
@@ -43,10 +45,19 @@
 #define WIN_PAUSED_H 3
 #define WIN_PAUSED_X ((termw / 2) - (WIN_PAUSED_W / 2))
 #define WIN_PAUSED_Y (termh - (termh / 3))
+#define WIN_TITLE_W 22
+#define WIN_TITLE_H 6
+#define WIN_TITLE_X ((termw / 2) - (WIN_TITLE_W / 2))
+#define WIN_TITLE_Y ((termh / 2) - (WIN_TITLE_H / 2))
 
 // text
 #define TEXT_GAMEOVER_1 "OUCH!"
 #define TEXT_GAMEOVER_2 "YOU MADE IT"
 #define TEXT_PAUSED "PAUSED"
+#define TEXT_TITLE_1 " askii "
+#define TEXT_TITLE_2 "ANY KEY START"
+#define TEXT_TITLE_3 "ARROWS MOVE"
+#define TEXT_TITLE_4 "P PAUSE"
+#define TEXT_TITLE_5 "Q QUIT"
 
 #endif

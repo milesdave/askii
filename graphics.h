@@ -12,5 +12,6 @@ void del_win(WINDOW*);
 void win_text(WINDOW*, const char*, int, align_t);
 void win_bold(WINDOW*, int, int, align_t);
 int align_x(WINDOW*, align_t, int);
+void shadow(int, int, int, int, int);
 
 #endif
