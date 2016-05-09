@@ -1,4 +1,4 @@
-askii.o: askii.c config.h askii.h types.h graphics.h list.h util.h
+askii.o: askii.c askii.h types.h config.h graphics.h list.h util.h
 list.o: list.c list.h types.h
 util.o: util.c config.h util.h types.h
 graphics.o: graphics.c config.h graphics.h types.h

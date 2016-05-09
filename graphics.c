@@ -41,11 +41,18 @@ WINDOW* create_win(int w, int h, int x, int y, int c)
 	WINDOW *win = newwin(h, w, y, x);
 	box(win, 0, 0);
 	wbkgd(win, COLOR_PAIR(c));
+	shadow(w, h, x, y, COLOUR_SHADOW_ID);
 	return win;
 }
 
 void del_win(WINDOW *w)
 {
+	// geometry for shadow
+	int _w, h, x, y;
+	getbegyx(w, y, x);
+	getmaxyx(w, h, _w);
+	shadow(_w, h, x, y, 0);
+
 	werase(w);
 	wbkgd(w, COLOR_PAIR(0));
 	wrefresh(w);

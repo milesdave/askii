@@ -5,8 +5,8 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include "config.h"
 #include "askii.h"
+#include "config.h"
 #include "graphics.h"
 #include "list.h"
 #include "types.h"
@@ -24,7 +24,6 @@ int main(void)
 
 	// title window
 	WINDOW *win = create_win(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_WINDOW_ID);
-	shadow(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_SHADOW_ID);
 	win_text(win, TEXT_TITLE_1, 0, ALIGN_RIGHT);
 	win_text(win, TEXT_TITLE_2, 1, ALIGN_LEFT);
 	win_text(win, TEXT_TITLE_3, 2, ALIGN_LEFT);
@@ -39,7 +38,6 @@ int main(void)
 
 	getch();
 	del_win(win);
-	shadow(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, 0);
 
 	setup();
 	loop();
@@ -205,9 +203,6 @@ void gameover(void)
 		quit = true;
 
 	del_win(win);
-
-	// return to non-blocking
-	nodelay(stdscr, true);
 }
 
 void paused(void)
