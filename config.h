@@ -60,4 +60,7 @@
 #define TEXT_TITLE_4 "P PAUSE"
 #define TEXT_TITLE_5 "Q QUIT"
 
+// last score file
+#define FILE_SCORE "/tmp/askii-score"
+
 #endif

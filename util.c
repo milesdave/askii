@@ -1,6 +1,10 @@
+#define _DEFAULT_SOURCE
+#include <fcntl.h>
 #include <ncurses.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <sys/mman.h>
+#include <unistd.h>
 #include "config.h"
 #include "util.h"
 
@@ -58,4 +62,30 @@ int any_key(void)
 		x = getch();
 
 	return x;
+}
+
+int map_score(int **m)
+{
+	// open file descriptor
+	int fd, *score;
+	if((fd = open(FILE_SCORE, O_RDWR | O_CREAT, 0644)) < 0)
+		return -1;
+
+	// set file size (need if file is empty)
+	if(ftruncate(fd, sizeof(*score)) != 0)
+		return -1;
+
+	// get pointer to mapped file
+	*m = mmap(0, sizeof(**m), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+	if(*m == MAP_FAILED)
+		return -1;
+
+	return fd;
+}
+
+void close_score(int f, int *m)
+{
+	if(f < 0) return;
+	munmap(m, sizeof(*m));
+	close(f);
 }

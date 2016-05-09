@@ -13,6 +13,9 @@ sprite_t player;
 list_head_t *trees;
 int trees_size;
 
+int score_fd;
+int *score;
+
 void setup(void);
 void loop(void);
 void update(void);

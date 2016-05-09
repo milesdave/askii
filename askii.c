@@ -22,6 +22,9 @@ int main(void)
 	updates = 0;
 	trees = NULL;
 
+	if((score_fd = map_score(&score)) > 0)
+		mvprintw(0, 0, "Last score: %d", *score);
+
 	// title window
 	WINDOW *win = create_win(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_WINDOW_ID);
 	win_text(win, TEXT_TITLE_1, 0, ALIGN_RIGHT);
@@ -42,6 +45,7 @@ int main(void)
 	setup();
 	loop();
 
+	close_score(score_fd, score);
 	list_free(&trees);
 	end_graphics();
 	return 0;
@@ -180,6 +184,12 @@ void gameover(void)
 {
 	// switch back to blocking i/o
 	nodelay(stdscr, false);
+
+	if(score_fd > 0)
+	{
+		mvprintw(0, 0, "Last score: %d", *score);
+		*score = dist;
+	}
 
 	player.ch = CHAR_PLAYER_GAMEOVER;
 	render();
