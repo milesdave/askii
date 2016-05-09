@@ -1,6 +1,7 @@
 #define _DEFAULT_SOURCE
 #include <fcntl.h>
 #include <ncurses.h>
+#include <math.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <sys/mman.h>
@@ -58,7 +59,9 @@ void set_dir(sprite_t *s, const dir_t d)
 int any_key(void)
 {
 	int x = getch();
-	while(x == KEY_PAUSE || x == _KEY_LEFT || x == _KEY_DOWN || x == _KEY_RIGHT)
+
+	// any key besides arrows - could accidently skip gameover
+	while(x == _KEY_LEFT || x == _KEY_DOWN || x == _KEY_RIGHT)
 		x = getch();
 
 	return x;
@@ -88,4 +91,9 @@ void close_score(int f, int *m)
 	if(f < 0) return;
 	munmap(m, sizeof(*m));
 	close(f);
+}
+
+int intlen(int x)
+{
+	return x == 0 ? 1 : (int)(log10(abs(x)) + 1);
 }

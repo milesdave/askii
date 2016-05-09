@@ -37,8 +37,8 @@
 #define _KEY_RIGHT KEY_RIGHT
 
 // geometry
-#define WIN_GAMEOVER_W 15
-#define WIN_GAMEOVER_H 5
+#define WIN_GAMEOVER_W 21
+#define WIN_GAMEOVER_H 7
 #define WIN_GAMEOVER_X ((termw / 2) - (WIN_GAMEOVER_W / 2))
 #define WIN_GAMEOVER_Y ((termh / 2) - (WIN_GAMEOVER_H / 2))
 #define WIN_PAUSED_W 10
@@ -53,6 +53,7 @@
 // text
 #define TEXT_GAMEOVER_1 "OUCH!"
 #define TEXT_GAMEOVER_2 "YOU MADE IT"
+#define TEXT_GAMEOVER_3 "LAST RUN"
 #define TEXT_PAUSED "PAUSED"
 #define TEXT_TITLE_1 " askii "
 #define TEXT_TITLE_2 "ANY KEY START"

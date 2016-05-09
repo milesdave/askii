@@ -1,5 +1,4 @@
 #define _DEFAULT_SOURCE
-#include <math.h>
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,12 +17,10 @@ int main(void)
 {
 	srand(time(NULL));
 	init_graphics();
+	score_fd = map_score(&score);
 	getmaxyx(stdscr, termh, termw);
 	updates = 0;
 	trees = NULL;
-
-	if((score_fd = map_score(&score)) > 0)
-		mvprintw(0, 0, "Last score: %d", *score);
 
 	// title window
 	WINDOW *win = create_win(WIN_TITLE_W, WIN_TITLE_H, WIN_TITLE_X, WIN_TITLE_Y, COLOUR_WINDOW_ID);
@@ -172,10 +169,9 @@ void render(void)
 	render_sprite(&player);
 
 	// render score
-	int len = (dist == 0 ? 1 : (int)(log10(dist) + 1));
+	int len = intlen(dist);
 	mvprintw(0, termw - 11, "%10dC", dist);
 	mvchgat(0, termw - (len + 1), 10, A_BOLD, COLOUR_SCORE_ID, NULL);
-	mvchgat(0, termw - 1, 1, A_NORMAL, COLOUR_SCORE_ID, NULL);
 
 	refresh();
 }
@@ -185,12 +181,6 @@ void gameover(void)
 	// switch back to blocking i/o
 	nodelay(stdscr, false);
 
-	if(score_fd > 0)
-	{
-		mvprintw(0, 0, "Last score: %d", *score);
-		*score = dist;
-	}
-
 	player.ch = CHAR_PLAYER_GAMEOVER;
 	render();
 
@@ -198,11 +188,24 @@ void gameover(void)
 	WINDOW *win = create_win(WIN_GAMEOVER_W, WIN_GAMEOVER_H, WIN_GAMEOVER_X, WIN_GAMEOVER_Y, COLOUR_WINDOW_ID);
 	win_text(win, TEXT_GAMEOVER_1, 1, ALIGN_CENTRE);
 	win_text(win, TEXT_GAMEOVER_2, 2, ALIGN_CENTRE);
-	int len = ((int)log10(dist) + 1);
-	mvwprintw(win, 3, align_x(win, ALIGN_CENTRE, len), "%dC", dist);
+	win_text(win, TEXT_GAMEOVER_3, 4, ALIGN_CENTRE);
 	win_bold(win, 1, strlen(TEXT_GAMEOVER_1), ALIGN_CENTRE);
-	win_bold(win, 3, len, ALIGN_CENTRE);
+
+	// distance
+	int l1 = intlen(dist) + 1;	// +1 for 'C' at end
+	mvwprintw(win, 3, align_x(win, ALIGN_CENTRE, l1), "%dC", dist);
+	win_bold(win, 3, l1, ALIGN_CENTRE);
+
+	// last run
+	int l2 = intlen(*score);
+	int diff = dist - *score;
+	int l3 = l2 + intlen(diff) + 5;	// +5 for 'C', sign, etc
+	mvwprintw(win, 5, align_x(win, ALIGN_CENTRE, l3), "%dC (%+d)", *score, diff);
+	win_bold(win, 5, l3, ALIGN_CENTRE);
 	wrefresh(win);
+
+	// update score in file
+	*score = dist;
 
 	// hide score
 	for(int i = 0; i < 10; i++)
