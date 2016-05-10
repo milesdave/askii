@@ -1,8 +1,8 @@
 # askii
 
-*An ASCII skiing game based on [SkiFree](http://ski.ihoc.net)*
+*An ASCII skiing game based on [SkiFree](http://ski.ihoc.net).*
 
-![askii screenshot](askii-a.png "askii")
+![askii screenshot](doc/askii-a.png "askii")
 
 ## Compiling
 
@@ -24,4 +24,4 @@ Your score is displayed in the top-right and represents your distance (in *chara
 
 Use the **arrow keys** left, down and right to move. **P** will pause/un-pause the game and **Q** will quit the game. Press any key after game over to start again.
 
-![askii screenshot](askii-b.png "askii")
+![askii screenshot](doc/askii-b.png "askii")
