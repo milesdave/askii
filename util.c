@@ -70,12 +70,12 @@ int any_key(void)
 int map_score(int **m)
 {
 	// open file descriptor
-	int fd, *score;
+	int fd;
 	if((fd = open(FILE_SCORE, O_RDWR | O_CREAT, 0644)) < 0)
 		return -1;
 
 	// set file size (need if file is empty)
-	if(ftruncate(fd, sizeof(*score)) != 0)
+	if(ftruncate(fd, sizeof(**m)) != 0)
 		return -1;
 
 	// get pointer to mapped file

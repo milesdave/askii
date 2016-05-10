@@ -1,6 +1,9 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
+// last score file
+#define FILE_SCORE "/tmp/askii-score"
+
 // sprites
 #define CHAR_PLAYER_LEFT '/'
 #define CHAR_PLAYER_DOWN '|'
@@ -23,7 +26,7 @@
 #define COLOUR_SHADOW COLOR_BLACK
 
 // limits
-#define SPAWN_INTERVAL 4
+#define SPAWN_INTERVAL 2
 #define SPEED_INIT 10
 #define SPEED_MAX 70
 #define SPEED_INTERVAL 100
@@ -55,13 +58,5 @@
 #define TEXT_GAMEOVER_2 "YOU MADE IT"
 #define TEXT_GAMEOVER_3 "LAST RUN"
 #define TEXT_PAUSED "PAUSED"
-#define TEXT_TITLE_1 " askii "
-#define TEXT_TITLE_2 "ANY KEY START"
-#define TEXT_TITLE_3 "ARROWS MOVE"
-#define TEXT_TITLE_4 "P PAUSE"
-#define TEXT_TITLE_5 "Q QUIT"
-
-// last score file
-#define FILE_SCORE "/tmp/askii-score"
 
 #endif
